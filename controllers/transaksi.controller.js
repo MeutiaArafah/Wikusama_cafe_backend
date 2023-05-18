@@ -175,7 +175,7 @@ exports.getTransaksi = async (request, response) => {
         /** give a response */
         return response.json({
             status: true,
-            message: result
+            data: result
         })
     } catch (error) {
         return response.json({

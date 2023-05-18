@@ -4,20 +4,23 @@ const app = express()
 /** load controller of menu */
 const menuController = require(`../controllers/menu.controller`)
 
+/** call authorization method */
+const { authorization } = require(`../controllers/auth.controller`)
+
 /** create route for add menu */
-app.post(`/menu`, menuController.addMenu)
+app.post(`/menu`, authorization(["admin","kasir", "manajer"]), menuController.addMenu)
 
 /** create route for get all menu */
-app.get(`/menu`, menuController.getMenu)
+app.get(`/menu`, authorization(["admin","kasir", "manajer"]), menuController.getMenu)
 
 /** create route for search menu */
-app.post(`/menu/find`, menuController.findMenu)
+app.post(`/menu/find`, authorization(["admin","kasir", "manajer"]), menuController.findMenu)
 
 /** create route for edit menu */
-app.put(`/menu/:id_menu`, menuController.updateMenu)
+app.put(`/menu/:id_menu`, authorization(["admin","kasir", "manajer"]), menuController.updateMenu)
 
 /** create route for delete menu */
-app.delete(`/menu/:id_menu`, menuController.deleteMenu)
+app.delete(`/menu/:id_menu`, authorization(["admin","kasir", "manajer"]), menuController.deleteMenu)
 
 /** export app */
 module.exports = app
